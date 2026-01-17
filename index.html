@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tarifs Abonnements - Lyvora</title>
+    <title>Tarifs Abonnements - Lyvora.ecom</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
             --color-accent: #4DB6AC; /* Teal Lyvora */
             --color-accent-hover: #80CBC4;
             --color-border-card: #2A2A2A;
-            --color-danger: #ff6b6b; /* Pour "Places limitées" */
+            --color-danger: #ff6b6b;
             
             --border-radius-card: 20px;
             --border-radius-btn: 10px;
@@ -82,7 +82,6 @@
         }
         .billing-label.active { color: var(--color-text-primary); }
         
-        /* The Switch */
         .switch {
             position: relative;
             display: inline-block;
@@ -144,10 +143,9 @@
         }
         .card:hover {
             transform: translateY(-5px);
-            border-color: var(--color-text-secondary); /* Hover subtil */
+            border-color: var(--color-text-secondary);
         }
 
-        /* Featured Card logic */
         .card.featured {
             border-color: var(--color-accent);
             background: linear-gradient(180deg, rgba(77, 182, 172, 0.05) 0%, var(--color-bg-card) 100%);
@@ -168,7 +166,6 @@
             text-transform: uppercase;
         }
 
-        /* Header Card */
         .card-header { margin-bottom: 25px; }
         .card-title {
             font-size: 1.5rem;
@@ -194,7 +191,6 @@
             margin-bottom: 20px;
         }
 
-        /* Price */
         .price-container {
             display: flex;
             align-items: baseline;
@@ -212,7 +208,6 @@
         }
         .card.featured .price-value { color: var(--color-accent); }
 
-        /* Features */
         .features-list {
             list-style: none;
             margin-bottom: 40px;
@@ -240,7 +235,6 @@
             margin-top: 2px;
         }
 
-        /* Buttons */
         .btn {
             display: block;
             width: 100%;
@@ -272,7 +266,6 @@
             color: var(--color-accent);
         }
 
-        /* Reassurance line under button */
         .reassurance-text {
             text-align: center;
             font-size: 0.75rem;
@@ -289,7 +282,7 @@
         .extra-sections {
             padding-top: 60px;
             border-top: 1px solid var(--color-border-card);
-            margin-top: 60px; /* Ajout d'une marge car la section avis n'est plus là */
+            margin-top: 60px;
         }
         
         .hourly-packs-container {
@@ -325,11 +318,84 @@
             margin-top: 20px;
         }
 
+        /* --- NOUVEAU FOOTER & MODALS CSS --- */
+        .legal-footer-links {
+            margin-top: 40px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            font-size: 0.85rem;
+        }
+        .legal-link {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .legal-link:hover { color: var(--color-accent); }
+        
+        .copyright-text {
+            color: var(--color-text-secondary);
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        .copyright-text a {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .copyright-text a:hover {
+            color: var(--color-accent);
+            text-decoration: underline;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.8); 
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background-color: var(--color-bg-card);
+            margin: 5% auto; 
+            padding: 40px;
+            border: 1px solid var(--color-border-card);
+            border-radius: var(--border-radius-card);
+            width: 90%;
+            max-width: 800px;
+            color: var(--color-text-secondary);
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .close-modal {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            top: 15px;
+            right: 25px;
+        }
+        .close-modal:hover { color: var(--color-accent); }
+        .modal-body h2 { color: var(--color-text-primary); margin-bottom: 20px; font-size: 1.8rem; }
+        .modal-body h3 { color: var(--color-text-primary); margin-top: 20px; margin-bottom: 10px; font-size: 1.2rem; }
+        .modal-body p { margin-bottom: 10px; font-size: 0.95rem; }
+
         /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
             .pricing-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto 60px auto; }
             .card.featured { transform: scale(1); border: 2px solid var(--color-accent); }
             .pricing-header h1 { font-size: 2.2rem; }
+            .modal-content { margin: 10% auto; padding: 25px; }
         }
     </style>
 </head>
@@ -498,13 +564,100 @@
                     <strong>Clause de périmètre :</strong>
                     "Les abonnements couvrent des interventions légères et des optimisations dans un cadre défini. Les 'bugs liés au thème' excluent les conflits d'applications tierces. Les demandes complexes (nouvelles pages entières, dev lourd) font l'objet d'un pack d'heures ou devis. Lyvora se réserve le droit d'arbitrer la complexité des demandes."
                 </div>
-                <p style="margin-top: 30px; font-size: 0.8rem; opacity: 0.5;">© 2026 lyvora.agency - Tous droits réservés.</p>
+
+                <div class="legal-footer-links">
+                    <a href="#" class="legal-link" id="btn-mentions">Mentions Légales</a>
+                    <span>|</span>
+                    <a href="#" class="legal-link" id="btn-cgv">CGV</a>
+                </div>
+                <p class="copyright-text">
+                    © 2026 <a href="https://www.lyvora.agency" target="_blank">www.lyvora.agency</a> - Tous droits réservés.
+                </p>
             </div>
         </footer>
 
     </div>
 
+    <div id="modal-mentions" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <h2>Mentions Légales</h2>
+                
+                <h3>1 - Édition du site</h3>
+                <p>En application de l'article 6 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique, il est précisé aux utilisateurs du site l'identité de son éditeur :</p>
+                <p><strong>Propriétaire du site :</strong> Lyvora Agency<br>
+                <strong>Forme juridique :</strong> Entreprise Individuelle<br>
+                <strong>Activité :</strong> Prestations de services numériques (création Shopify, refonte, optimisation, consulting)<br>
+                <strong>SIRET :</strong> 931 112 510 00017<br>
+                <strong>Adresse :</strong> Rue de Bihucourt, 62121 Béhagnies<br>
+                <strong>Contact :</strong> contact@lyvora.agency</p>
+                <p><strong>Hébergeur :</strong> Shopify Inc., 151 O'Connor Street, Ground floor, Ottawa, Ontario K2P 2L8, Canada.<br>
+                <strong>Responsable du traitement des données :</strong> Lyvora Agency - contact@lyvora.agency</p>
+
+                <h3>2 - Propriété intellectuelle</h3>
+                <p>Lyvora Agency détient les droits de propriété intellectuelle ou les droits d’usage sur tous les éléments accessibles sur le site, notamment textes, images, graphismes, logo, vidéos, structure et code. Toute reproduction, modification ou exploitation non autorisée est interdite et constitue une contrefaçon conformément aux articles L.335-2 et suivants du Code de la Propriété Intellectuelle.</p>
+
+                <h3>3 - Limitations de responsabilité</h3>
+                <p>Lyvora Agency ne peut être tenue responsable des dommages directs ou indirects causés au matériel de l’utilisateur, lors de l’accès au site. L'agence décline toute responsabilité liée à l’utilisation des informations fournies sur le site ou à une interruption temporaire de service.</p>
+
+                <h3>4 - Données personnelles</h3>
+                <p>Les données collectées sur le site sont strictement nécessaires au traitement des demandes clients. Elles ne sont ni revendues ni transmises à des tiers. Conformément à la loi Informatique et Libertés et au RGPD, l’utilisateur dispose d’un droit d’accès, de rectification et de suppression de ses données. Pour exercer ce droit : contact@lyvora.agency.</p>
+
+                <h3>5 - Cookies et liens hypertextes</h3>
+                <p>Le site peut déposer des cookies nécessaires à son bon fonctionnement ou à des mesures d’audience. Aucun cookie non essentiel n’est déposé sans votre consentement. Le site peut contenir des liens vers d’autres sites. Lyvora Agency décline toute responsabilité concernant le contenu de ces sites tiers.</p>
+
+                <h3>6 - Médiation et litiges</h3>
+                <p>Lyvora Agency exerce une activité de prestations destinées principalement à des professionnels. À ce titre, les dispositions relatives au médiateur de la consommation ne s'appliquent pas. En cas de litige, et après tentative de résolution amiable, compétence exclusive est attribuée aux tribunaux du ressort du siège social de Lyvora Agency.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-cgv" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <h2>Conditions Générales de Vente</h2>
+                <p>Dernière mise à jour : 2026</p>
+
+                <h3>Article 1 - Objet</h3>
+                <p>Les présentes Conditions Générales de Vente (CGV) s'appliquent à l'ensemble des prestations proposées par Lyvora Agency. Les services incluent : création ou refonte de sites Shopify, optimisation UX/UI, configuration technique, SEO, intégration de contenus, automatisations et accompagnement stratégique. Toute commande implique l'acceptation pleine et entière des présentes CGV.</p>
+
+                <h3>Article 2 - Prix</h3>
+                <p>Les prix de nos prestations sont indiqués en euros et hors TVA (TVA non applicable, art. 293 B du CGI). Lyvora Agency se réserve le droit de modifier ses tarifs à tout moment. Toutefois, le tarif applicable reste celui validé dans le devis accepté par le client.</p>
+
+                <h3>Article 3 - Devis, Commande et Paiement</h3>
+                <p>Un devis détaillant la prestation est transmis au client avant toute intervention. La commande est considérée comme validée après signature électronique ou confirmation écrite du devis. Un acompte de 50 % est exigé à la commande. Le solde est dû avant la livraison finale du site ou des livrables. Le paiement s'effectue par virement bancaire ou par carte bancaire via un lien sécurisé.</p>
+
+                <h3>Article 4 - Obligations du Client</h3>
+                <p>Le client s'engage à fournir l'ensemble des accès nécessaires (Shopify, hébergeur, outils tiers), ainsi que les contenus (textes, images, informations légales) dans des délais raisonnables. Tout retard ou absence de contenu peut décaler les délais de livraison. Le client garantit que les éléments fournis ne portent atteinte à aucun droit tiers.</p>
+
+                <h3>Article 5 - Fourniture des Services et Délais</h3>
+                <p>Les prestations sont réalisées conformément au devis accepté. Les délais de livraison sont estimatifs et dépendent de la réactivité du client, notamment dans la transmission des informations et validations intermédiaires. La prestation est considérée comme livrée dès l’envoi des fichiers, la mise en ligne du site ou la réalisation des interventions convenues.</p>
+
+                <h3>Article 6 - Modifications et Retouches</h3>
+                <p>Chaque prestation inclut un nombre limité de retouches, précisé dans le devis. Toute demande supplémentaire (modifications majeures, nouvelles pages, fonctionnalités additionnelles) fera l'objet d'un devis complémentaire.</p>
+
+                <h3>Article 7 - Droit de Rétractation</h3>
+                <p>Pour les clients professionnels : aucun droit de rétractation ne s'applique. Pour les consommateurs au sens du Code de la consommation : le droit de rétractation ne s'applique pas aux prestations déjà exécutées ou lorsque le client a demandé expressément le démarrage de la prestation avant la fin du délai légal. Le client reconnaît ainsi renoncer à son droit de rétractation dès le début de l'exécution.</p>
+
+                <h3>Article 8 - Responsabilité</h3>
+                <p>Lyvora Agency est tenue à une obligation de moyens et non de résultat. La responsabilité de l'agence ne peut être engagée en cas de mauvaise utilisation du site, d’interventions externes (applications tierces, modifications du client) ou d'indisponibilité temporaire liée à Shopify ou aux prestataires techniques. L'agence ne pourra être tenue responsable de pertes de chiffre d'affaires, données, réputation ou tout dommage indirect.</p>
+
+                <h3>Article 9 - Propriété Intellectuelle</h3>
+                <p>Les maquettes, éléments graphiques, développements personnalisés et contenus produits par Lyvora Agency restent sa propriété intellectuelle jusqu'au paiement complet de la facture. Une fois la prestation intégralement réglée, les droits d'exploitation sont transférés au client.</p>
+
+                <h3>Article 10 - Données Personnelles</h3>
+                <p>Lyvora Agency collecte uniquement les données nécessaires à la réalisation des prestations. Ces informations ne sont jamais cédées ni revendues. Le client peut demander la suppression ou rectification de ses données à l'adresse suivante : contact@lyvora.agency.</p>
+
+                <h3>Article 11 - Loi Applicable et Litiges</h3>
+                <p>Les présentes CGV sont régies par le droit français. Tout litige sera soumis aux tribunaux compétents du ressort du siège social de Lyvora Agency, après tentative de résolution amiable.</p>
+            </div>
+        </div>
+    </div>
+
     <script>
+        /* --- TOGGLE PRIX MENSUEL/ANNUEL --- */
         const toggle = document.getElementById('billing-toggle');
         const priceValues = document.querySelectorAll('.price-value');
         const pricePeriods = document.querySelectorAll('.price-period');
@@ -515,7 +668,6 @@
         toggle.addEventListener('change', function() {
             const isAnnual = this.checked;
 
-            // Update Labels Style
             if(isAnnual) {
                 monthlyLabel.classList.remove('active');
                 annualLabel.classList.add('active');
@@ -526,7 +678,6 @@
                 billingInfo.textContent = "Facturation mensuelle sans engagement";
             }
 
-            // Update Prices
             priceValues.forEach(price => {
                 if(isAnnual) {
                     price.textContent = price.getAttribute('data-annual') + '€';
@@ -535,11 +686,32 @@
                 }
             });
 
-            // Update Period text
             pricePeriods.forEach(period => {
                 period.textContent = isAnnual ? '/an' : '/mois';
             });
         });
+
+        /* --- GESTION DES MODALES (MENTIONS & CGV) --- */
+        const modalMentions = document.getElementById("modal-mentions");
+        const modalCgv = document.getElementById("modal-cgv");
+        const btnMentions = document.getElementById("btn-mentions");
+        const btnCgv = document.getElementById("btn-cgv");
+        const closeButtons = document.querySelectorAll(".close-modal");
+
+        btnMentions.onclick = function(e) { e.preventDefault(); modalMentions.style.display = "block"; }
+        btnCgv.onclick = function(e) { e.preventDefault(); modalCgv.style.display = "block"; }
+
+        closeButtons.forEach(btn => {
+            btn.onclick = function() {
+                modalMentions.style.display = "none";
+                modalCgv.style.display = "none";
+            }
+        });
+
+        window.onclick = function(event) {
+            if (event.target == modalMentions) { modalMentions.style.display = "none"; }
+            if (event.target == modalCgv) { modalCgv.style.display = "none"; }
+        }
     </script>
 
 </body>
