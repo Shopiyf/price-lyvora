@@ -11,13 +11,15 @@
     <style>
         /* --- VARIABLES CSS & RESET --- */
         :root {
-            --color-bg-main: #121212; /* Fond très sombre */
-            --color-bg-card: #1E1E1E; /* Fond des cartes, légèrement plus clair */
+            --color-bg-main: #121212;
+            --color-bg-card: #1E1E1E;
             --color-text-primary: #ffffff;
             --color-text-secondary: #A0A0A0;
-            --color-accent: #4DB6AC; /* Vert d'eau/Teal inspiré de votre DA */
+            --color-accent: #4DB6AC; /* Teal inspiré de votre DA */
             --color-accent-hover: #80CBC4;
-            --border-radius: 16px;
+            --color-border-card: #2A2A2A;
+            --border-radius-card: 20px;
+            --border-radius-btn: 10px;
             --section-spacing: 80px;
         }
 
@@ -32,89 +34,169 @@
             background-color: var(--color-bg-main);
             color: var(--color-text-primary);
             line-height: 1.6;
-            padding: 20px;
+            padding-bottom: 60px;
         }
 
-        /* --- TYPOGRAPHY & UTILS --- */
-        h1, h2, h3 { font-weight: 700; }
-        .container { max-width: 1200px; margin: 0 auto; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .text-center { text-align: center; }
         .accent-text { color: var(--color-accent); }
-        .sub-header {
+
+        /* --- HEADER SECTION --- */
+        .pricing-header {
+            padding-top: 80px;
+            padding-bottom: 40px;
+            text-align: center;
+        }
+        .pricing-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .pricing-header p {
             color: var(--color-text-secondary);
             max-width: 700px;
-            margin: 20px auto var(--section-spacing) auto;
+            margin: 0 auto 30px auto;
+            font-size: 1.1rem;
+        }
+
+        /* --- SWITCH (Exemple visuel) --- */
+        .billing-switch {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 50px;
+            color: var(--color-text-secondary);
+        }
+        .switch-container {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+        .switch-container input { display: none; }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: var(--color-bg-card);
+            transition: .4s;
+            border-radius: 34px;
+            border: 1px solid var(--color-border-card);
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 3px;
+            background-color: var(--color-text-primary);
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider { background-color: var(--color-accent); border-color: var(--color-accent); }
+        input:checked + .slider:before { transform: translateX(30px); background-color: var(--color-bg-main); }
+        .billing-label.active { color: var(--color-text-primary); font-weight: 600; }
+
+        /* --- PRICING GRID --- */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            align-items: stretch;
+            margin-bottom: 80px;
+        }
+
+        /* --- PRICING CARD STYLES (Inspiré de l'image) --- */
+        .card {
+            background-color: var(--color-bg-card);
+            border-radius: var(--border-radius-card);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid var(--color-border-card);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-accent);
+        }
+
+        /* Mise en avant du plan recommandé */
+        .card.featured {
+            border-color: var(--color-accent);
+            box-shadow: 0 10px 30px rgba(77, 182, 172, 0.1);
+            transform: scale(1.03);
+            z-index: 2;
+        }
+
+        .card-header {
+            margin-bottom: 25px;
+        }
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
         .badge {
             display: inline-block;
             padding: 6px 12px;
             border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            font-size: 0.75rem;
+            font-weight: 700;
             text-transform: uppercase;
-            margin-bottom: 15px;
+            letter-spacing: 0.5px;
         }
         .badge-accent { background-color: var(--color-accent); color: var(--color-bg-main); }
-        .badge-dark { background-color: #333; color: var(--color-text-secondary); }
+        .badge-dark { background-color: var(--color-border-card); color: var(--color-text-secondary); }
 
-        /* --- HEADER SECTION --- */
-        header { padding-top: 60px; }
-        header h1 { font-size: 2.5rem; margin-bottom: 10px; }
-
-        /* --- PRICING GRID --- */
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            align-items: stretch; /* Les cartes ont la même hauteur */
+        .card-desc {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+            min-height: 50px;
         }
 
-        /* --- PRICING CARD STYLES --- */
-        .card {
-            background-color: var(--color-bg-card);
-            border-radius: var(--border-radius);
-            padding: 40px 30px;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: transform 0.3s ease, border-color 0.3s ease;
-            position: relative;
+        .card-price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: 30px;
         }
-
-        .card:hover {
-            border-color: var(--color-accent);
-            transform: translateY(-5px);
+        .card-price span {
+            font-size: 1.1rem;
+            color: var(--color-text-secondary);
+            font-weight: 400;
         }
-
-        /* Mise en avant du plan recommandé */
-        .card.featured {
-            border: 2px solid var(--color-accent);
-            box-shadow: 0 0 30px rgba(77, 182, 172, 0.15);
-        }
-
-        .card h3 { font-size: 1.8rem; margin-bottom: 10px; }
-        .card-desc { color: var(--color-text-secondary); font-size: 0.9rem; margin-bottom: 25px; min-height: 50px;}
-
-        .price { font-size: 3rem; font-weight: 700; color: var(--color-text-primary); }
-        .price span { font-size: 1.1rem; color: var(--color-text-secondary); font-weight: 400; }
+        .card.featured .card-price { color: var(--color-accent); }
 
         /* Features List */
-        .features { margin: 30px 0; flex-grow: 1; /* Pousse le bouton vers le bas */ }
-        .features li {
+        .features-list {
             list-style: none;
-            margin-bottom: 15px;
+            margin-bottom: 40px;
+            flex-grow: 1;
+        }
+        .features-list li {
+            margin-bottom: 18px;
             display: flex;
             align-items: flex-start;
             color: #E0E0E0;
             font-size: 0.95rem;
+            line-height: 1.4;
         }
-        /* Icône check SVG */
         .check-icon {
-            min-width: 20px;
+            flex-shrink: 0;
+            width: 20px;
             height: 20px;
-            margin-right: 12px;
+            margin-right: 15px;
             fill: var(--color-accent);
-            margin-top: 3px;
+            margin-top: 2px;
         }
         .feature-note {
             display: block;
@@ -123,192 +205,256 @@
             margin-top: 4px;
         }
 
-        /* CTA Button */
+        /* Buttons */
         .btn {
-            display: inline-block;
+            display: block;
             width: 100%;
-            padding: 15px 25px;
+            padding: 16px 25px;
             text-align: center;
-            border-radius: 8px;
+            border-radius: var(--border-radius-btn);
             text-decoration: none;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
+            font-weight: 700;
+            transition: all 0.3s ease;
             cursor: pointer;
             border: none;
+            font-size: 1rem;
         }
         .btn-primary {
             background-color: var(--color-accent);
             color: var(--color-bg-main);
         }
-        .btn-primary:hover { background-color: var(--color-accent-hover); }
+        .btn-primary:hover { background-color: var(--color-accent-hover); box-shadow: 0 5px 15px rgba(77, 182, 172, 0.3); }
         .btn-outline {
             background-color: transparent;
-            border: 2px solid var(--color-accent);
-            color: var(--color-accent);
+            border: 2px solid var(--color-border-card);
+            color: var(--color-text-primary);
         }
-        .btn-outline:hover { background-color: rgba(77, 182, 172, 0.1); }
+        .btn-outline:hover { border-color: var(--color-accent); color: var(--color-accent); }
 
+        /* Card Footer (Small text like 'Cancel anytime') */
+        .card-footer {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid var(--color-border-card);
+            color: var(--color-text-secondary);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .footer-icon {
+            width: 16px;
+            height: 16px;
+            fill: var(--color-text-secondary);
+        }
 
-        /* --- HOURLY PACKS & FOOTER SECTIONS --- */
+        /* --- EXTRA SECTIONS (Packs, Clause) --- */
         .extra-sections {
             margin-top: var(--section-spacing);
-            padding-top: 40px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 60px;
+            border-top: 1px solid var(--color-border-card);
+        }
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
         }
         
         .hourly-packs-container {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 30px;
+            margin-top: 40px;
             flex-wrap: wrap;
-            margin-top: 30px;
         }
-        
         .pack-item {
             background: var(--color-bg-card);
-            padding: 20px 30px;
-            border-radius: 12px;
+            padding: 30px 40px;
+            border-radius: var(--border-radius-card);
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 2px solid var(--color-border-card);
+            transition: border-color 0.3s;
         }
-        .pack-title { font-weight: 600; color: var(--color-text-secondary); }
-        .pack-price { font-size: 1.5rem; font-weight: 700; color: var(--color-accent); margin-top: 5px; }
+        .pack-item:hover { border-color: var(--color-accent); }
+        .pack-title { font-size: 1.2rem; font-weight: 600; color: var(--color-text-primary); margin-bottom: 10px; }
+        .pack-price { font-size: 1.8rem; font-weight: 700; color: var(--color-accent); }
 
         .disclaimer-footer {
-            margin-top: 60px;
-            font-size: 0.85rem;
+            margin-top: 80px;
+            font-size: 0.9rem;
             color: var(--color-text-secondary);
             text-align: center;
             max-width: 900px;
             margin-left: auto;
             margin-right: auto;
-            padding-bottom: 40px;
         }
-        .disclaimer-footer p { margin-bottom: 15px; }
         .important-clause {
-            background-color: rgba(77, 182, 172, 0.1); /* Fond subtil teal */
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid var(--color-accent);
+            background-color: rgba(77, 182, 172, 0.08);
+            padding: 30px;
+            border-radius: var(--border-radius-card);
+            border: 1px solid rgba(77, 182, 172, 0.3);
             text-align: left;
+            margin-top: 30px;
         }
 
         /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .pricing-grid {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            }
+            .card.featured { transform: none; }
+            .card.featured:hover { transform: translateY(-5px); }
+        }
         @media (max-width: 768px) {
-            header h1 { font-size: 2rem; }
-            .card { padding: 30px 20px; }
+            .pricing-header h1 { font-size: 2.5rem; }
+            .card { padding: 30px 25px; }
+            .card-title { flex-direction: column; align-items: flex-start; gap: 10px; }
         }
     </style>
 </head>
 <body>
 
-    <header class="container text-center">
-        <h1>Abonnements Lyvora (Shopify)</h1>
-        <p class="sub-header">
-            Conçus pour les petites marques e-commerce qui veulent une boutique stable, qui évolue, et qui convertit mieux, sans retouches infinies.
-        </p>
-    </header>
+    <div class="container">
+        <header class="pricing-header">
+            <h1>Abonnements Lyvora</h1>
+            <p>Conçus pour les petites marques e-commerce qui veulent une boutique stable, qui évolue, et qui convertit mieux, sans retouches infinies.</p>
 
-    <main class="container">
-        <div class="pricing-grid">
-
-            <div class="card">
-                <span class="badge badge-dark">Tranquillité</span>
-                <h3>Essential</h3>
-                <p class="card-desc">Pour garder une boutique propre, stable, et à jour sans repayer pour chaque petit ajustement.</p>
-                <div class="price">99€<span>/mois</span></div>
-                
-                <ul class="features">
-                    <li>
-                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                        <div>Correctifs des bugs liés au thème<span class="feature-note">(affichage, responsive, sections)</span></div>
-                    </li>
-                    <li>
-                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                        <div>3 petites modifications contenu / mois<span class="feature-note">(textes, images, ajustements légers)</span></div>
-                    </li>
-                    <li>
-                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                        <div>Shopify basics inclus<span class="feature-note">(réglages thème, navigation)</span></div>
-                    </li>
-                    <li>
-                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                        Check mensuel rapide
-                    </li>
-                    <li>
-                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                        Délai de réponse: sous 48h ouvrées
-                    </li>
-                </ul>
-                <a href="#contact" class="btn btn-outline">Choisir Essential</a>
+            <div class="billing-switch">
+                <span class="billing-label active">Mensuel</span>
+                <label class="switch-container">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+                <span class="billing-label">Annuel</span>
             </div>
+        </header>
 
-            <div class="card featured">
-                <span class="badge badge-accent">Recommandé - Évolution</span>
-                <h3>Growth</h3>
-                <p class="card-desc">Pour faire progresser la boutique chaque mois : conversion, confiance, panier moyen.</p>
-                <div class="price accent-text">249€<span>/mois</span></div>
-                
-                <ul class="features">
-                    <li>
-                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                        <div>**1 Optimisation conversion / mois**<span class="feature-note">(Sprint CRO: page produit, panier, etc.)</span></div>
-                    </li>
-                    <li>
-                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                        <div>1 Ajout "confiance" / mois<span class="feature-note">(avis, FAQ, réassurance, preuves sociales)</span></div>
-                    </li>
-                    <li>
-                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                        6 petites modifications contenu / mois
-                    </li>
-                    <li>
-                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                        Mini reporting + 1 point mensuel (Loom/Appel)
-                    </li>
-                    <li>
-                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                        Délai de réponse: 24 à 48h ouvrées
-                    </li>
-                </ul>
-                <a href="#contact" class="btn btn-primary">Choisir Growth</a>
+        <main>
+            <div class="pricing-grid">
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            Essential
+                            <span class="badge badge-dark">Tranquillité</span>
+                        </div>
+                        <p class="card-desc">Pour garder une boutique propre, stable, et à jour sans repayer pour chaque petit ajustement.</p>
+                    </div>
+                    <div class="card-price">99€<span>/mois</span></div>
+                    
+                    <ul class="features-list">
+                        <li>
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            <div>Correctifs des bugs liés au thème<span class="feature-note">(affichage, responsive, sections)</span></div>
+                        </li>
+                        <li>
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            <div>3 petites modifications contenu / mois<span class="feature-note">(textes, images, ajustements légers)</span></div>
+                        </li>
+                        <li>
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            <div>Shopify basics inclus<span class="feature-note">(réglages thème, navigation)</span></div>
+                        </li>
+                        <li>
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Check mensuel rapide
+                        </li>
+                        <li>
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Délai de réponse: sous 48h ouvrées
+                        </li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline">Choisir Essential</a>
+                    <div class="card-footer">
+                        <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.95V5h-2.97v1.74c-1.81.35-3.24 1.49-3.24 3.07 0 2.23 1.86 3.45 4.55 4.07 1.96.46 2.34 1.16 2.34 1.9 0 1.01-.96 1.63-2.26 1.63-1.59 0-2.18-.74-2.25-1.81H7.1c.06 1.68 1.21 2.79 2.87 3.16V21h2.97v-1.77c1.94-.35 3.38-1.57 3.38-3.34 0-2.38-2.13-3.5-4.91-4.15z"/></svg>
+                        1 liste de demandes / mois
+                    </div>
+                </div>
+
+                <div class="card featured">
+                    <div class="card-header">
+                        <div class="card-title">
+                            Growth
+                            <span class="badge badge-accent">Recommandé</span>
+                        </div>
+                        <p class="card-desc">Pour faire progresser la boutique chaque mois : conversion, confiance, panier moyen.</p>
+                    </div>
+                    <div class="card-price">249€<span>/mois</span></div>
+                    
+                    <ul class="features-list">
+                        <li>
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            <div>**1 Optimisation conversion / mois**<span class="feature-note">(Sprint CRO: page produit, panier, etc.)</span></div>
+                        </li>
+                        <li>
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            <div>1 Ajout "confiance" / mois<span class="feature-note">(avis, FAQ, réassurance, preuves sociales)</span></div>
+                        </li>
+                        <li>
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            6 petites modifications contenu / mois
+                        </li>
+                        <li>
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Mini reporting + 1 point mensuel (Loom/Appel)
+                        </li>
+                        <li>
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Délai de réponse: 24 à 48h ouvrées
+                        </li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Choisir Growth</a>
+                    <div class="card-footer">
+                        <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.95V5h-2.97v1.74c-1.81.35-3.24 1.49-3.24 3.07 0 2.23 1.86 3.45 4.55 4.07 1.96.46 2.34 1.16 2.34 1.9 0 1.01-.96 1.63-2.26 1.63-1.59 0-2.18-.74-2.25-1.81H7.1c.06 1.68 1.21 2.79 2.87 3.16V21h2.97v-1.77c1.94-.35 3.38-1.57 3.38-3.34 0-2.38-2.13-3.5-4.91-4.15z"/></svg>
+                        Livraison en 1 à 2 lots / mois
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            Scale
+                            <span class="badge badge-dark" style="color: #ff6b6b; border-color: #ff6b6b;">Places limitées</span>
+                        </div>
+                        <p class="card-desc">Pour les marques qui lancent souvent (drops, soldes) et veulent une exécution rapide.</p>
+                    </div>
+                    <div class="card-price">449€<span>/mois</span></div>
+                    
+                    <ul class="features-list">
+                        <li>
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            <div>**2 Optimisations conversion / mois**<span class="feature-note">(2 Sprints CRO)</span></div>
+                        </li>
+                        <li>
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            <div>1 Kit lancement / mois<span class="feature-note">(Landing page simple OU pack bannières)</span></div>
+                        </li>
+                        <li>
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            10 petites modifications contenu / mois
+                        </li>
+                        <li>
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Priorité: réponse sous 24h ouvrées
+                        </li>
+                        <li>
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Roadmap mensuelle claire
+                        </li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline">Choisir Scale</a>
+                    <div class="card-footer">
+                        <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.95V5h-2.97v1.74c-1.81.35-3.24 1.49-3.24 3.07 0 2.23 1.86 3.45 4.55 4.07 1.96.46 2.34 1.16 2.34 1.9 0 1.01-.96 1.63-2.26 1.63-1.59 0-2.18-.74-2.25-1.81H7.1c.06 1.68 1.21 2.79 2.87 3.16V21h2.97v-1.77c1.94-.35 3.38-1.57 3.38-3.34 0-2.38-2.13-3.5-4.91-4.15z"/></svg>
+                        1 liste hebdo (2 listes max/mois)
+                    </div>
+                </div>
+
             </div>
+        </main>
 
-            <div class="card">
-                <span class="badge badge-dark" style="color:#ff6b6b">Priorité - Places limitées</span>
-                <h3>Scale</h3>
-                <p class="card-desc">Pour les marques qui lancent souvent (drops, soldes) et veulent une exécution rapide.</p>
-                <div class="price">449€<span>/mois</span></div>
-                
-                <ul class="features">
-                    <li>
-                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                        <div>**2 Optimisations conversion / mois**<span class="feature-note">(2 Sprints CRO)</span></div>
-                    </li>
-                    <li>
-                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                        <div>1 Kit lancement / mois<span class="feature-note">(Landing page simple OU pack bannières)</span></div>
-                    </li>
-                    <li>
-                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                        10 petites modifications contenu / mois
-                    </li>
-                    <li>
-                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                        Priorité: réponse sous 24h ouvrées
-                    </li>
-                    <li>
-                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                        Roadmap mensuelle claire
-                    </li>
-                </ul>
-                <a href="#contact" class="btn btn-outline">Choisir Scale</a>
-            </div>
-
-        </div>
-
-        <div class="extra-sections text-center">
-            <h2>Besoin de plus ? Packs hors forfait.</h2>
+        <footer class="extra-sections text-center">
+            <h2 class="section-title">Besoin de plus ? Packs hors forfait.</h2>
             <p style="color: var(--color-text-secondary);">Pour tout ce qui sort du cadre ou demandes ponctuelles.</p>
             
             <div class="hourly-packs-container">
@@ -325,19 +471,19 @@
                     <div class="pack-price">949 €</div>
                 </div>
             </div>
-        </div>
 
-        <footer class="disclaimer-footer">
-            <p>
-                <strong>Cadre de fonctionnement :</strong> Canal unique via formulaire. Demandes regroupées en liste (mensuelle ou hebdo selon plan). Livraisons groupées (pas de micro-retouches quotidiennes au fil de l'eau).
-            </p>
-            <div class="important-clause">
-                <strong>Clause importante :</strong>
-                "Les abonnements couvrent des interventions légères et des optimisations dans un cadre défini. Une petite modification correspond à un ajustement simple ne nécessitant pas de conception complète, ni de développement lourd, ni d’intégration complexe. Les demandes plus importantes, les nouvelles pages complètes, les configurations d’apps avancées, ou toute demande nécessitant un chantier complet sont proposées via pack d’heures ou devis. Lyvora se réserve le droit de regrouper les demandes et de proposer une alternative lorsque la demande sort du périmètre."
+            <div class="disclaimer-footer">
+                <p style="margin-bottom: 20px;">
+                    <strong>Cadre de fonctionnement :</strong> Canal unique via formulaire. Demandes regroupées en liste. Livraisons groupées (pas de micro-retouches quotidiennes).
+                </p>
+                <div class="important-clause">
+                    <strong>Clause importante :</strong>
+                    "Les abonnements couvrent des interventions légères et des optimisations dans un cadre défini. Une petite modification correspond à un ajustement simple ne nécessitant pas de conception complète, ni de développement lourd, ni d’intégration complexe. Les demandes plus importantes, les nouvelles pages complètes, les configurations d’apps avancées, ou toute demande nécessitant un chantier complet sont proposées via pack d’heures ou devis. Lyvora se réserve le droit de regrouper les demandes et de proposer une alternative lorsque la demande sort du périmètre."
+                </div>
             </div>
         </footer>
 
-    </main>
+    </div>
 
 </body>
 </html>
