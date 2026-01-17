@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarifs Abonnements - Lyvora.ecom</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- VARIABLES CSS & RESET --- */
+        :root {
+            --color-bg-main: #121212; /* Fond très sombre */
+            --color-bg-card: #1E1E1E; /* Fond des cartes, légèrement plus clair */
+            --color-text-primary: #ffffff;
+            --color-text-secondary: #A0A0A0;
+            --color-accent: #4DB6AC; /* Vert d'eau/Teal inspiré de votre DA */
+            --color-accent-hover: #80CBC4;
+            --border-radius: 16px;
+            --section-spacing: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-bg-main);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        /* --- TYPOGRAPHY & UTILS --- */
+        h1, h2, h3 { font-weight: 700; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .text-center { text-align: center; }
+        .accent-text { color: var(--color-accent); }
+        .sub-header {
+            color: var(--color-text-secondary);
+            max-width: 700px;
+            margin: 20px auto var(--section-spacing) auto;
+        }
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+        .badge-accent { background-color: var(--color-accent); color: var(--color-bg-main); }
+        .badge-dark { background-color: #333; color: var(--color-text-secondary); }
+
+        /* --- HEADER SECTION --- */
+        header { padding-top: 60px; }
+        header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+
+        /* --- PRICING GRID --- */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            align-items: stretch; /* Les cartes ont la même hauteur */
+        }
+
+        /* --- PRICING CARD STYLES --- */
+        .card {
+            background-color: var(--color-bg-card);
+            border-radius: var(--border-radius);
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            position: relative;
+        }
+
+        .card:hover {
+            border-color: var(--color-accent);
+            transform: translateY(-5px);
+        }
+
+        /* Mise en avant du plan recommandé */
+        .card.featured {
+            border: 2px solid var(--color-accent);
+            box-shadow: 0 0 30px rgba(77, 182, 172, 0.15);
+        }
+
+        .card h3 { font-size: 1.8rem; margin-bottom: 10px; }
+        .card-desc { color: var(--color-text-secondary); font-size: 0.9rem; margin-bottom: 25px; min-height: 50px;}
+
+        .price { font-size: 3rem; font-weight: 700; color: var(--color-text-primary); }
+        .price span { font-size: 1.1rem; color: var(--color-text-secondary); font-weight: 400; }
+
+        /* Features List */
+        .features { margin: 30px 0; flex-grow: 1; /* Pousse le bouton vers le bas */ }
+        .features li {
+            list-style: none;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            color: #E0E0E0;
+            font-size: 0.95rem;
+        }
+        /* Icône check SVG */
+        .check-icon {
+            min-width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            fill: var(--color-accent);
+            margin-top: 3px;
+        }
+        .feature-note {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+            margin-top: 4px;
+        }
+
+        /* CTA Button */
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 15px 25px;
+            text-align: center;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary {
+            background-color: var(--color-accent);
+            color: var(--color-bg-main);
+        }
+        .btn-primary:hover { background-color: var(--color-accent-hover); }
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--color-accent);
+            color: var(--color-accent);
+        }
+        .btn-outline:hover { background-color: rgba(77, 182, 172, 0.1); }
+
+
+        /* --- HOURLY PACKS & FOOTER SECTIONS --- */
+        .extra-sections {
+            margin-top: var(--section-spacing);
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .hourly-packs-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .pack-item {
+            background: var(--color-bg-card);
+            padding: 20px 30px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .pack-title { font-weight: 600; color: var(--color-text-secondary); }
+        .pack-price { font-size: 1.5rem; font-weight: 700; color: var(--color-accent); margin-top: 5px; }
+
+        .disclaimer-footer {
+            margin-top: 60px;
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+            text-align: center;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 40px;
+        }
+        .disclaimer-footer p { margin-bottom: 15px; }
+        .important-clause {
+            background-color: rgba(77, 182, 172, 0.1); /* Fond subtil teal */
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--color-accent);
+            text-align: left;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2rem; }
+            .card { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="container text-center">
+        <h1>Abonnements Lyvora (Shopify)</h1>
+        <p class="sub-header">
+            Conçus pour les petites marques e-commerce qui veulent une boutique stable, qui évolue, et qui convertit mieux, sans retouches infinies.
+        </p>
+    </header>
+
+    <main class="container">
+        <div class="pricing-grid">
+
+            <div class="card">
+                <span class="badge badge-dark">Tranquillité</span>
+                <h3>Essential</h3>
+                <p class="card-desc">Pour garder une boutique propre, stable, et à jour sans repayer pour chaque petit ajustement.</p>
+                <div class="price">99€<span>/mois</span></div>
+                
+                <ul class="features">
+                    <li>
+                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <div>Correctifs des bugs liés au thème<span class="feature-note">(affichage, responsive, sections)</span></div>
+                    </li>
+                    <li>
+                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <div>3 petites modifications contenu / mois<span class="feature-note">(textes, images, ajustements légers)</span></div>
+                    </li>
+                    <li>
+                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <div>Shopify basics inclus<span class="feature-note">(réglages thème, navigation)</span></div>
+                    </li>
+                    <li>
+                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Check mensuel rapide
+                    </li>
+                    <li>
+                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Délai de réponse: sous 48h ouvrées
+                    </li>
+                </ul>
+                <a href="#contact" class="btn btn-outline">Choisir Essential</a>
+            </div>
+
+            <div class="card featured">
+                <span class="badge badge-accent">Recommandé - Évolution</span>
+                <h3>Growth</h3>
+                <p class="card-desc">Pour faire progresser la boutique chaque mois : conversion, confiance, panier moyen.</p>
+                <div class="price accent-text">249€<span>/mois</span></div>
+                
+                <ul class="features">
+                    <li>
+                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <div>**1 Optimisation conversion / mois**<span class="feature-note">(Sprint CRO: page produit, panier, etc.)</span></div>
+                    </li>
+                    <li>
+                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <div>1 Ajout "confiance" / mois<span class="feature-note">(avis, FAQ, réassurance, preuves sociales)</span></div>
+                    </li>
+                    <li>
+                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        6 petites modifications contenu / mois
+                    </li>
+                    <li>
+                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Mini reporting + 1 point mensuel (Loom/Appel)
+                    </li>
+                    <li>
+                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Délai de réponse: 24 à 48h ouvrées
+                    </li>
+                </ul>
+                <a href="#contact" class="btn btn-primary">Choisir Growth</a>
+            </div>
+
+            <div class="card">
+                <span class="badge badge-dark" style="color:#ff6b6b">Priorité - Places limitées</span>
+                <h3>Scale</h3>
+                <p class="card-desc">Pour les marques qui lancent souvent (drops, soldes) et veulent une exécution rapide.</p>
+                <div class="price">449€<span>/mois</span></div>
+                
+                <ul class="features">
+                    <li>
+                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <div>**2 Optimisations conversion / mois**<span class="feature-note">(2 Sprints CRO)</span></div>
+                    </li>
+                    <li>
+                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <div>1 Kit lancement / mois<span class="feature-note">(Landing page simple OU pack bannières)</span></div>
+                    </li>
+                    <li>
+                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        10 petites modifications contenu / mois
+                    </li>
+                    <li>
+                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Priorité: réponse sous 24h ouvrées
+                    </li>
+                    <li>
+                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Roadmap mensuelle claire
+                    </li>
+                </ul>
+                <a href="#contact" class="btn btn-outline">Choisir Scale</a>
+            </div>
+
+        </div>
+
+        <div class="extra-sections text-center">
+            <h2>Besoin de plus ? Packs hors forfait.</h2>
+            <p style="color: var(--color-text-secondary);">Pour tout ce qui sort du cadre ou demandes ponctuelles.</p>
+            
+            <div class="hourly-packs-container">
+                <div class="pack-item">
+                    <div class="pack-title">Pack 2h</div>
+                    <div class="pack-price">220 €</div>
+                </div>
+                <div class="pack-item">
+                    <div class="pack-title">Pack 5h</div>
+                    <div class="pack-price">499 €</div>
+                </div>
+                <div class="pack-item">
+                    <div class="pack-title">Pack 10h</div>
+                    <div class="pack-price">949 €</div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="disclaimer-footer">
+            <p>
+                <strong>Cadre de fonctionnement :</strong> Canal unique via formulaire. Demandes regroupées en liste (mensuelle ou hebdo selon plan). Livraisons groupées (pas de micro-retouches quotidiennes au fil de l'eau).
+            </p>
+            <div class="important-clause">
+                <strong>Clause importante :</strong>
+                "Les abonnements couvrent des interventions légères et des optimisations dans un cadre défini. Une petite modification correspond à un ajustement simple ne nécessitant pas de conception complète, ni de développement lourd, ni d’intégration complexe. Les demandes plus importantes, les nouvelles pages complètes, les configurations d’apps avancées, ou toute demande nécessitant un chantier complet sont proposées via pack d’heures ou devis. Lyvora se réserve le droit de regrouper les demandes et de proposer une alternative lorsque la demande sort du périmètre."
+            </div>
+        </footer>
+
+    </main>
+
+</body>
+</html>
